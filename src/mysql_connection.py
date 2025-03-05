@@ -103,7 +103,7 @@ class MySqlConnector:
         key_type = ",".join([f"{key} {value}" for key, value in columns.items()])
         command = (
             f"""
-            CREATE TABLE IF NOT EXISTS {table_name} (id INT AUTO_INCREMENT PRIMARY KEY,{key_type})"""
+            CREATE TABLE IF NOT EXISTS {table_name} (id BIGINT AUTO_INCREMENT PRIMARY KEY,{key_type})"""
                    )
         print(command)
         self.cursor.execute(command)
@@ -121,18 +121,19 @@ if __name__ == '__main__':
         **{"host": "172.17.106.183",
             "user": "root",
             "password": "1qaz2wsx",
-            "database": "nantawats"}
+            "database": "scan_folder"}
     )
-    conn.drop_table("scan_dir")
-    conn.create_table(table_name="scan_dir", columns={"absolute_path": "VARCHAR(255) NOT NULL",
-                                                      "file_name": "VARCHAR(255)",
-                                                      "file_type": "VARCHAR(255)",
-                                                      "file_encode": "VARCHAR(255)",
-                                                      "file_size": "BIGINT",
-                                                      "modified_time": "DATETIME",
-                                                      "file_permission": "VARCHAR(255)",
-                                                      "DIRorREGFILE": "VARCHAR(255)",
-                                                      'owner_uid': "SMALLINT",
-                                                      "owner_gid": "SMALLINT",
-                                                      "name_owner": "VARCHAR(255)"
-                                                      })
+
+    # conn.drop_table("scan_dir")
+    # conn.create_table(table_name="scan_folder", columns={"absolute_path": "VARCHAR(255) NOT NULL",
+    #                                                   "file_name": "VARCHAR(255)",
+    #                                                   "file_type": "VARCHAR(255)",
+    #                                                   "file_encode": "VARCHAR(255)",
+    #                                                   "file_size": "BIGINT",
+    #                                                   "modified_time": "DATETIME",
+    #                                                   "file_permission": "VARCHAR(255)",
+    #                                                   "DIRorREGFILE": "VARCHAR(255)",
+    #                                                   'owner_uid': "SMALLINT",
+    #                                                   "owner_gid": "SMALLINT",
+    #                                                   "name_owner": "VARCHAR(255)"
+    #                                                   })
