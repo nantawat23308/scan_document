@@ -1,0 +1,58 @@
+{
+    "general": {
+        "log_folder_path": "log",
+        "mysql_config": {
+            "host": "172.17.106.183",        
+            "user": "root",             
+            "password": "1qaz2wsx",     
+            "database": "nantawats"
+        }
+    },
+
+    "scan_folder": {
+        "insert_batch_size": 1000,
+        "thread_number": 1,
+        "ignore_folder": [],
+        "ignore_file": []
+    },
+
+    "lang_id": {
+        "api_params": {
+            "analysistype": 1,
+            "maxlines": 80,
+            "shorttextlimit": 10,
+            "secondaryalgorithmlimit": 90,
+            "doublepass": false,
+            "includeoriginaltext": true,
+            "regexremove": "",
+            "primaryalgorithmonly": true,
+            "detaillevel": 1
+        },
+        "length_limit": {
+            "text_limit": 1000,
+            "row_limit": 10
+        },
+        "control_file_format": {
+            "priority": [".docx", ".xlsx", ".pptx", ".doc", ".xls", ".ppt"],
+            "allowed": [".docx", ".xlsx", ".pptx", ".doc", ".xls", ".ppt", ".txt", ".json", ".log", ".md", ".csv", ".tsv"],
+            "ignored": []
+        },
+        "mysql": {
+            "query_batch_size": 1000,
+            "insert_batch_size": 1000
+        }
+    },
+
+    "md_conversion": {
+        "output_folder_path" : "output",
+        "control_file_format": {
+            "priority": [".pdf"],
+            "allowed": [".pdf", ".docx", ".epub", ".html", ".eml"],
+            "ignored": []
+        },
+        "mysql": {
+            "query_batch_size": 1,
+            "insert_batch_size": 1
+        }
+    }
+}
