@@ -111,19 +111,19 @@ def list_all_inside(directory: str | PathLike) -> list[str]:
 
 
 if __name__ == '__main__':
-    list_dir_all = walktree("/", visit_file)
-    json_write(list_dir_all, "/home/nantawat/Desktop/template_code_structure/debug/debug.json")
-    print(list_dir_all[0])
-    df = pd.DataFrame(list_dir_all)
-    df.to_csv("/home/nantawat/Desktop/template_code_structure/debug/debug.csv", index=False)
-    print(df.head())
-    print(df.shape)
-    print(df.columns)
-    conn = MySqlConnector(
-        **{"host": "172.17.106.183",
-           "user": "root",
-           "password": "1qaz2wsx",
-           "database": "nantawats"}
-    )
-    conn.insert_many_to_table(table_name="scan_dir", columns=list(df.columns), json_data=list_dir_all)
-    # print(list_dir_all)
+    list_dir_all = walktree("/home/nantawat/Desktop/scan_document/", visit_file)
+    print(list_dir_all)
+    # json_write(list_dir_all, "/home/nantawat/Desktop/template_code_structure/debug/debug.json")
+    # print(list_dir_all[0])
+    # df = pd.DataFrame(list_dir_all)
+    # df.to_csv("/home/nantawat/Desktop/template_code_structure/debug/debug.csv", index=False)
+    # print(df.head())
+    # print(df.shape)
+    # print(df.columns)
+    # conn = MySqlConnector(
+    #     **{"host": "172.17.106.183",
+    #        "user": "root",
+    #        "password": "1qaz2wsx",
+    #        "database": "nantawats"}
+    # )
+    # conn.insert_many_to_table(table_name="scan_dir", columns=list(df.columns), json_data=list_dir_all)
