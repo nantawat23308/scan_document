@@ -6,7 +6,7 @@ import traceback
 from datetime import datetime
 
 from ottools import otcommon, otdatetime
-
+from src import folder_scan
 from src import mysql_connection, utility
 # ---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -24,18 +24,10 @@ def process_main():
     logger.info(f"START: process_main - Start: {main_tracker.start_time_formatted}")
 
     # Initialize Object
-    mysql_conn = mysql_connection.MySqlConnector(**config_data)
-
-
-
-    
-    pass
-
-    # Start Processing
-    
+    # pass
     try:
 
-        pass
+        folder_scan.main(logger, "/")
 
     except Exception as e:
 
@@ -112,7 +104,7 @@ def configure_parser():
 
     parser = argparse.ArgumentParser(description='Wrapper process for processing an folder')
 
-    if otcommon.is_debugging(): # otcommon.is_debugging()
+    if True: #otcommon.is_debugging(): # otcommon.is_debugging()
         parser.add_argument('--config_file_path', type=str, help='The config file', default="config/config.json")
         parser.add_argument('--verbose', type=bool, help='Enables verbose logging. Prints contents sent to the log file to the screen', default=True)        
         parser.add_argument('--debug_mode', type=bool, help='Enables debug mode.', default=False)
