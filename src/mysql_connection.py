@@ -84,7 +84,6 @@ class MySqlConnector:
         sql = f"INSERT INTO {table_name} ({columns_name}) VALUES ({placeholders})"
 
         values = [tuple(data.values()) for data in json_data]
-        print(values[0])
         for val in values:
             self.cursor.execute(sql, val)
         self.connection.commit()
@@ -114,6 +113,10 @@ class MySqlConnector:
         self.cursor.execute(command)
         self.connection.commit()
 
+    def call_stored_procedure(self, procedure, data):
+        self.cursor.callproc(procedure, args=data)
+        self.connection.commit()
+
 
 
 if __name__ == '__main__':
@@ -121,19 +124,20 @@ if __name__ == '__main__':
         **{"host": "172.17.106.183",
             "user": "root",
             "password": "1qaz2wsx",
-            "database": "scan_folder"}
+            "database": "nantawats"}
     )
 
-    # conn.drop_table("scan_dir")
-    # conn.create_table(table_name="scan_folder", columns={"absolute_path": "VARCHAR(255) NOT NULL",
-    #                                                   "file_name": "VARCHAR(255)",
-    #                                                   "file_type": "VARCHAR(255)",
-    #                                                   "file_encode": "VARCHAR(255)",
-    #                                                   "file_size": "BIGINT",
-    #                                                   "modified_time": "DATETIME",
-    #                                                   "file_permission": "VARCHAR(255)",
-    #                                                   "DIRorREGFILE": "VARCHAR(255)",
-    #                                                   'owner_uid': "SMALLINT",
-    #                                                   "owner_gid": "SMALLINT",
-    #                                                   "name_owner": "VARCHAR(255)"
-    #                                                   })
+    conn.drop_table("scan_dir")
+    conn.create_table(table_name="scan_dir", columns={"absolute_path": "VARCHAR(255) NOT NULL",
+                                                      "file_name": "VARCHAR(255)",
+                                                      "file_type": "VARCHAR(255)",
+                                                      "file_encode": "VARCHAR(255)",
+                                                      "file_size": "BIGINT",
+                                                      "modified_time": "DATETIME",
+                                                      "file_permission": "VARCHAR(255)",
+                                                      "DIRorREGFILE": "VARCHAR(255)",
+                                                      'owner_uid': "SMALLINT",
+                                                      "owner_gid": "SMALLINT",
+                                                      "name_owner": "VARCHAR(255)",
+                                                      "md5": "VARCHAR(255)"
+                                                      })
