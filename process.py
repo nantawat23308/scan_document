@@ -7,10 +7,10 @@ from datetime import datetime
 
 from ottools import otcommon, otdatetime
 from src import folder_scan
-from src import mysql_connection, utility
+from src import mysql_connection, utility, run
 # ---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-def process_main():
+def process_main(input_folder_path):
     '''
     Runs the main process
     
@@ -24,10 +24,15 @@ def process_main():
     logger.info(f"START: process_main - Start: {main_tracker.start_time_formatted}")
 
     # Initialize Object
+    connect_mysql = mysql_connection.MySqlConnector(**config_data['general']['mysql_config'])
+    scan_obj = folder_scan.DirectoryScan(logger)
     # pass
     try:
 
-        folder_scan.main(logger, "/")
+        run.main(logger,
+                 scan_obj,
+                 connect_mysql,
+                 input_folder_path)
 
     except Exception as e:
 
@@ -75,11 +80,11 @@ def init(args):
     #####################
     ## Initalize
     #####################
-
+    input_folder_path = args.input_folder_path
     logger.info(f"Initialize complete - Begin processing")
 
     #Initialize complete - Begin processing  
-    process_main()
+    process_main(input_folder_path)
 
     # clear logging after finished
     otcommon.cleanup_logger(logger, file_handler)
@@ -105,11 +110,15 @@ def configure_parser():
     parser = argparse.ArgumentParser(description='Wrapper process for processing an folder')
 
     if True: #otcommon.is_debugging(): # otcommon.is_debugging()
+        parser.add_argument('--input_folder_path', type=str, help='The folder to process.',
+                            default="/home/nantawat/Desktop/")
         parser.add_argument('--config_file_path', type=str, help='The config file', default="config/config.json")
         parser.add_argument('--verbose', type=bool, help='Enables verbose logging. Prints contents sent to the log file to the screen', default=True)        
         parser.add_argument('--debug_mode', type=bool, help='Enables debug mode.', default=False)
 
     else:
+        parser.add_argument('--input_folder_path', type=str, help='The folder to process.',
+                            default="/")
         parser.add_argument('--config_file_path', type=str, help='The config file', required=True, default="config.json")
         parser.add_argument('--verbose', type=bool, help='Enables verbose logging. Prints contents sent to the log file to the screen', default=False)        
         parser.add_argument('--debug_mode', type=bool, help='Enables debug mode.', default=False)
